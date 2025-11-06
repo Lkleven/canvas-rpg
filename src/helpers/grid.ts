@@ -15,6 +15,7 @@ export function drawNumberedGrid(
   ctx.fillStyle = "#333";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
+  ctx.lineWidth = 1;
 
   const cols = Math.floor(width / gridSize);
   const rows = Math.floor(height / gridSize);

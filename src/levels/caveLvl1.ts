@@ -35,7 +35,7 @@ export class CaveLvl1 extends Level {
     const rod = new Rod(gridCells(10), gridCells(6));
     this.addChild(rod);
 
-    this.walls = buildWalls([...trees, ...squares, ...water, ...rock]);
+    this.walls = buildWalls([...squares, ...water, ...rock]);
   }
 
   ready() {
@@ -45,27 +45,35 @@ export class CaveLvl1 extends Level {
   }
 }
 
-const trees = [
-  { x: 4, y: 3 },
-  { x: 14, y: 2 },
-  { x: 13, y: 4 },
-];
 const squares = [
-  { x: 4, y: 4 },
-  { x: 4, y: 5 },
-  { x: 5, y: 4 },
-  { x: 5, y: 5 },
+  { x: 3, y: 1 },
+  { x: 4, y: 1 },
+  { x: 5, y: 3 },
+  { x: 6, y: 3 },
+  { x: 6, y: 4 },
+  { x: 7, y: 4 },
   { x: 8, y: 3 },
-  { x: 9, y: 3 },
+  { x: 12, y: 5 },
+  { x: 13, y: 5 },
+  { x: 14, y: 6 },
 ];
 const water = [
-  { x: 7, y: 5 },
-  { x: 8, y: 5 },
-  { x: 9, y: 5 },
-  { x: 10, y: 5 },
-];
-const rock = [
+  { x: 6, y: 6 },
+  { x: 7, y: 6 },
+  { x: 8, y: 6 },
+  { x: 11, y: 6 },
   { x: 12, y: 6 },
   { x: 13, y: 6 },
-  { x: 14, y: 6 },
+  { x: 15, y: 2 },
+  { x: 16, y: 2 },
+];
+const rock = [
+  { x: 2, y: 4 },
+  { x: 3, y: 4 },
+  { x: 3, y: 5 },
+  { x: 9, y: 1 },
+  { x: 12, y: 2 },
+  { x: 13, y: 2 },
+  { x: 13, y: 3 },
+  { x: 16, y: 5 },
 ];

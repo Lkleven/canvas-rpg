@@ -1,4 +1,5 @@
 import { GameLoop } from "./gameloop";
+import { drawNumberedGrid } from "./helpers/grid";
 import { Input } from "./input";
 import { CaveLvl1 } from "./levels/caveLvl1";
 import { OutdoorLvl1 } from "./levels/outdoorLvl1";
