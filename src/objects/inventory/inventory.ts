@@ -20,7 +20,7 @@ export class Inventory extends GameObject {
     ];
 
     // React to hero picking up item
-    events.on("ROD_PICKED_UP_BY_HERO", this, (data) => {
+    events.on("ROD_PICKED_UP_BY_HERO", this, () => {
       this.items.push({
         id: this.nextId++,
         image: resources.images.rod,

@@ -1,15 +1,23 @@
 export const walls: Set<string> = new Set();
 
-walls.add("64,48"); // tree
+const posToPixels = (x: number, y: number) => `${x * 16},${y * 16}`;
 
-walls.add("64,64"); // squares
-walls.add("64,80");
-walls.add("80,64");
-walls.add("80,80");
-walls.add("128,48");
-walls.add("144,48");
+walls.add(posToPixels(4, 3)); // tree
+walls.add(posToPixels(14, 2));
+walls.add(posToPixels(13, 4));
 
-walls.add("112,80"); // water
-walls.add("128,80");
-walls.add("144,80");
-walls.add("160,80");
+walls.add(posToPixels(4, 4)); // squares
+walls.add(posToPixels(4, 5));
+walls.add(posToPixels(5, 4));
+walls.add(posToPixels(5, 5));
+walls.add(posToPixels(8, 3));
+walls.add(posToPixels(9, 3));
+
+walls.add(posToPixels(7, 5)); // water
+walls.add(posToPixels(8, 5));
+walls.add(posToPixels(9, 5));
+walls.add(posToPixels(10, 5));
+
+walls.add(posToPixels(12, 6)); // rock
+walls.add(posToPixels(13, 6));
+walls.add(posToPixels(14, 6));

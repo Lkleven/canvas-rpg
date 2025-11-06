@@ -1,4 +1,5 @@
 import { events } from "./events";
+import type { Input } from "./input";
 import { Vector2 } from "./vector2";
 
 export class GameObject {
@@ -30,16 +31,15 @@ export class GameObject {
   }
 
   ready() {
-    // To be implemented
+    // ... exists here to be overridden by subclasses for now
   }
 
   // Called once every frame
-  step(delta: number, root: GameObject) {
-    // To be implemented
+  step(_delta: number, _input?: Input) {
+    // ... exists here to be overridden by subclasses for now
   }
 
   // Draw entry
-
   draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
     const drawPosX = x + this.position.x;
     const drawPosY = y + this.position.y;
@@ -50,8 +50,8 @@ export class GameObject {
     this.children.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
   }
 
-  drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
-    // To be implemented
+  drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number) {
+    // ... exists here to be overridden by subclasses for now
   }
 
   destroy() {

@@ -2,7 +2,7 @@ type Callback = {
   id: number;
   eventName: string;
   caller: any;
-  callback: (value: string) => void;
+  callback: Function;
 };
 
 class Events {
@@ -19,7 +19,7 @@ class Events {
   }
 
   // Subscribe
-  on(eventName: string, caller: any, callback: () => void) {
+  on(eventName: string, caller: any, callback: Function) {
     this.nextId += 1;
     this.callbacks.push({
       id: this.nextId,

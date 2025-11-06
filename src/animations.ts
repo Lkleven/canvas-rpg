@@ -1,13 +1,22 @@
-export class Animations {
-  patterns: any;
-  activeKey: string;
+import type { FrameIndexPattern } from "./frameIndexPattern";
 
-  constructor(patterns) {
+export type AnimationPattern = {
+  frame: number;
+};
+
+export class Animations {
+  patterns: Record<string, FrameIndexPattern>;
+  activeKey?: string;
+
+  constructor(patterns: Record<string, FrameIndexPattern>) {
     this.patterns = patterns;
     this.activeKey = Object.keys(this.patterns).at(0);
   }
 
   get frame() {
+    if (!this.activeKey) {
+      return undefined;
+    }
     return this.patterns[this.activeKey].frame;
   }
 
@@ -20,6 +29,9 @@ export class Animations {
   }
 
   step(delta: number) {
+    if (!this.activeKey) {
+      return;
+    }
     this.patterns[this.activeKey].step(delta);
   }
 }

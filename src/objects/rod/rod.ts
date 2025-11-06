@@ -1,5 +1,6 @@
 import { events } from "../../events";
 import { GameObject } from "../../gameObject";
+import { positionRounded, positionsOverlapping } from "../../helpers/position";
 import { resources } from "../../resource";
 import { Sprite } from "../../sprite";
 import { Vector2 } from "../../vector2";
@@ -38,9 +39,3 @@ export class Rod extends GameObject {
     });
   }
 }
-
-const positionRounded = (pos: Vector2) =>
-  new Vector2(Math.round(pos.x), Math.round(pos.y));
-
-const positionsOverlapping = (pos1: Vector2, pos2: Vector2) =>
-  pos1.x === pos2.x && pos1.y === pos2.y;

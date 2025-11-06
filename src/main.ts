@@ -1,8 +1,7 @@
 import { Camera } from "./camera";
-import { events } from "./events";
 import { GameLoop } from "./gameloop";
 import { GameObject } from "./gameObject";
-import { gridCells } from "./helpers/grid";
+import { drawNumberedGrid, gridCells } from "./helpers/grid";
 import { Input } from "./input";
 import { walls } from "./levels/level1";
 
@@ -44,9 +43,10 @@ mainScene.addChild(rod);
 
 const inventory = new Inventory();
 
-mainScene.input = new Input();
+const input = new Input();
 
 const update = (delta: number) => {
+  hero.step(delta, input);
   mainScene.stepEntry(delta, mainScene);
 };
 
@@ -75,6 +75,7 @@ const draw = () => {
 
   mainScene.draw(ctx, 0, 0);
   drawWallBorders(ctx, walls);
+  // drawNumberedGrid(ctx, canvas.width, canvas.height, 16);
 
   // Restore to original state
   ctx.restore();

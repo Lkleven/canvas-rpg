@@ -4,9 +4,10 @@ import { FrameIndexPattern } from "../../frameIndexPattern";
 import { GameObject } from "../../gameObject";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
-import { DOWN } from "../../input";
+import { DOWN, Input } from "../../input";
 import { walls } from "../../levels/level1";
 import { resources } from "../../resource";
+import type { PickupEvent } from "../../shared/types";
 import { Sprite } from "../../sprite";
 import { Vector2 } from "../../vector2";
 import {
@@ -72,7 +73,7 @@ export class Hero extends GameObject {
     this.itemPickupTime = 0;
     this.itemPickupShell = null;
 
-    events.on("ROD_PICKED_UP_BY_HERO", this, (data) => {
+    events.on("ROD_PICKED_UP_BY_HERO", this, (data: PickupEvent) => {
       this.onPickUpItem(data);
     });
 
@@ -80,7 +81,7 @@ export class Hero extends GameObject {
     console.log("Dest", this.destinationPos);
   }
 
-  step(delta: number, root: GameObject) {
+  step(delta: number, input: Input) {
     // Locks movement on item pickup
     if (this.itemPickupTime > 0) {
       this.workOnItemPickup(delta);
@@ -90,7 +91,7 @@ export class Hero extends GameObject {
     const distance = moveTowards(this, this.destinationPos, 1);
     const hasArrived = distance <= 1;
     if (hasArrived) {
-      this.tryMove(root);
+      this.tryMove(input);
     }
 
     this.tryEmitPosition();
@@ -105,7 +106,7 @@ export class Hero extends GameObject {
     events.emit("HERO_POSITION", this.position);
   }
 
-  tryMove(root: GameObject) {
+  tryMove(input: Input) {
     const gridSize = 16;
     const moveMap = {
       UP: {
@@ -125,7 +126,7 @@ export class Hero extends GameObject {
         anim: "walkRight",
       },
     };
-    const { input } = root;
+
     const dir = input.direction;
     if (!dir) {
       if (this.facingDirection === "UP") {
@@ -166,7 +167,7 @@ export class Hero extends GameObject {
     }
   }
 
-  onPickUpItem(data) {
+  onPickUpItem(data: PickupEvent) {
     const { image, position } = data;
     this.destinationPos = position;
 
