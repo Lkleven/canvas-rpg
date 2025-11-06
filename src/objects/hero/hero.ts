@@ -5,7 +5,7 @@ import { GameObject } from "../../gameObject";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
 import { DOWN, Input } from "../../input";
-import { walls } from "../../levels/level1";
+// import { walls } from "../../levels/outdoorLvl1";
 import { resources } from "../../resource";
 import type { PickupEvent } from "../../shared/types";
 import { Sprite } from "../../sprite";
@@ -81,7 +81,7 @@ export class Hero extends GameObject {
     console.log("Dest", this.destinationPos);
   }
 
-  step(delta: number, input: Input) {
+  step(delta: number, root: GameObject) {
     // Locks movement on item pickup
     if (this.itemPickupTime > 0) {
       this.workOnItemPickup(delta);
@@ -91,7 +91,7 @@ export class Hero extends GameObject {
     const distance = moveTowards(this, this.destinationPos, 1);
     const hasArrived = distance <= 1;
     if (hasArrived) {
-      this.tryMove(input);
+      this.tryMove(root);
     }
 
     this.tryEmitPosition();
@@ -106,7 +106,7 @@ export class Hero extends GameObject {
     events.emit("HERO_POSITION", this.position);
   }
 
-  tryMove(input: Input) {
+  tryMove(root: GameObject) {
     const gridSize = 16;
     const moveMap = {
       UP: {
@@ -127,7 +127,7 @@ export class Hero extends GameObject {
       },
     };
 
-    const dir = input.direction;
+    const dir = root.input?.direction;
     if (!dir) {
       if (this.facingDirection === "UP") {
         this.body.animations.play("standUp");
@@ -158,9 +158,9 @@ export class Hero extends GameObject {
       nextY += move.y;
       this.body.animations.play(anim);
 
-      this.facingDirection = input.direction ?? this.facingDirection;
+      this.facingDirection = dir ?? this.facingDirection;
 
-      if (isSpaceFree(walls, nextX, nextY)) {
+      if (isSpaceFree(root.level?.walls, nextX, nextY)) {
         this.destinationPos.x = nextX;
         this.destinationPos.y = nextY;
       }

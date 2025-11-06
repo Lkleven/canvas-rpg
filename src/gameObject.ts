@@ -7,12 +7,14 @@ export class GameObject {
   children: GameObject[];
   parent: GameObject | null;
   hasReadyBeenCalled: boolean;
+  input: Input | undefined;
 
-  constructor({ position }: { position?: Vector2 }) {
+  constructor({ position, input }: { position?: Vector2; input?: Input }) {
     this.position = position ?? new Vector2(0, 0);
     this.children = [];
     this.parent = null;
     this.hasReadyBeenCalled = false;
+    this.input = input;
   }
 
   // First entry point of the loop
@@ -35,7 +37,7 @@ export class GameObject {
   }
 
   // Called once every frame
-  step(_delta: number, _input?: Input) {
+  step(_delta: number, _root?: GameObject) {
     // ... exists here to be overridden by subclasses for now
   }
 

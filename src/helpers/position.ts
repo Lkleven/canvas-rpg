@@ -5,3 +5,5 @@ export const positionRounded = (pos: Vector2) =>
 
 export const positionsOverlapping = (pos1: Vector2, pos2: Vector2) =>
   pos1.x === pos2.x && pos1.y === pos2.y;
+
+export const posToPixels = (x: number, y: number) => `${x * 16},${y * 16}`;

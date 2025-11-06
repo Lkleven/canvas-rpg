@@ -1,6 +1,15 @@
 import type { Resource } from "./shared/types";
 
-const imageKeys = ["sky", "ground", "hero", "shadow", "rod"] as const;
+const imageKeys = [
+  "sky",
+  "ground",
+  "hero",
+  "shadow",
+  "rod",
+  "exit",
+  "cave",
+  "caveGround",
+] as const;
 type ImageKey = (typeof imageKeys)[number];
 
 type Images = {
@@ -14,11 +23,16 @@ class Resources {
   constructor() {
     // Everything we plan to download
     this.toLoad = {
-      sky: "/sprites/sky.png",
-      ground: "/sprites/ground.png",
       hero: "/sprites/hero-sheet.png",
       shadow: "/sprites/shadow.png",
       rod: "/sprites/rod.png",
+      exit: "/sprites/exit.png",
+      // Outdoors
+      sky: "/sprites/sky.png",
+      ground: "/sprites/ground.png",
+      // Cave
+      cave: "/sprites/cave.png",
+      caveGround: "/sprites/cave-ground.png",
     };
 
     // A bucket to keep all our images

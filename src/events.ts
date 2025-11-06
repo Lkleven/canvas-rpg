@@ -10,7 +10,7 @@ class Events {
   nextId = 0;
 
   // Emit
-  emit(eventName: string, value: any) {
+  emit(eventName: string, value?: any) {
     this.callbacks.forEach((cb) => {
       if (cb.eventName === eventName) {
         cb.callback(value);

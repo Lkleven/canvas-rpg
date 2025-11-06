@@ -1,52 +1,21 @@
-import { Camera } from "./camera";
 import { GameLoop } from "./gameloop";
-import { GameObject } from "./gameObject";
-import { drawNumberedGrid, gridCells } from "./helpers/grid";
 import { Input } from "./input";
-import { walls } from "./levels/level1";
+import { CaveLvl1 } from "./levels/caveLvl1";
+import { OutdoorLvl1 } from "./levels/outdoorLvl1";
 
-import { Hero } from "./objects/hero/hero";
-import { Inventory } from "./objects/inventory/inventory";
-import { Rod } from "./objects/rod/rod";
-import { resources } from "./resource";
-import { Sprite } from "./sprite";
+import { Main } from "./objects/main/main";
 import "./style.css";
-import { Vector2 } from "./vector2";
 
 const canvas = document.getElementById("game") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
 
-const mainScene = new GameObject({
-  position: new Vector2(0, 0),
-});
-
-const skySprite = new Sprite({
-  resource: resources.images.sky,
-  frameSize: new Vector2(320, 180),
-});
-
-const groundSprite = new Sprite({
-  resource: resources.images.ground,
-  frameSize: new Vector2(320, 180),
-});
-
-mainScene.addChild(groundSprite);
-
-const hero = new Hero(gridCells(6), gridCells(5));
-mainScene.addChild(hero);
-
-const camera = new Camera();
-mainScene.addChild(camera);
-
-const rod = new Rod(gridCells(10), gridCells(6));
-mainScene.addChild(rod);
-
-const inventory = new Inventory();
-
-const input = new Input();
+const mainScene = new Main();
+// mainScene.setLevel(new OutdoorLvl1());
+mainScene.setLevel(new CaveLvl1());
+mainScene.input = new Input();
 
 const update = (delta: number) => {
-  hero.step(delta, input);
+  // hero.step(delta, input);
   mainScene.stepEntry(delta, mainScene);
 };
 
@@ -65,23 +34,27 @@ const draw = () => {
   // Clear stale
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  skySprite.draw(ctx, 0, 0);
+  mainScene.drawBackground(ctx);
 
   // Save the current state (for camera offset)
   ctx.save();
 
   // Offset by campera position
-  ctx.translate(camera.position.x, camera.position.y);
+  if (mainScene.camera) {
+    ctx.translate(mainScene.camera.position.x, mainScene.camera.position.y);
+  }
 
   mainScene.draw(ctx, 0, 0);
-  drawWallBorders(ctx, walls);
+  if (mainScene.level) {
+    drawWallBorders(ctx, mainScene.level.walls);
+  }
   // drawNumberedGrid(ctx, canvas.width, canvas.height, 16);
 
   // Restore to original state
   ctx.restore();
 
   // Draw anything above game world
-  inventory.draw(ctx, 0, 0);
+  mainScene.drawForeground(ctx);
 };
 
 const gameLoop = new GameLoop(update, draw);
