@@ -7,6 +7,15 @@ import { OutdoorLvl1 } from "./levels/outdoorLvl1";
 import { Main } from "./objects/main/main";
 import "./style.css";
 
+// CONTINUE HERE https://youtu.be/yTFIciZKG0M?si=i6CWWeMys8PlwwTZ&t=1582
+// TODO: Sound Effects
+// TODO: Music
+// TODO: Interaction
+// TODO: Replace walls with instantiated objects with their own sprites and properties
+// TODO: Fix Picked up items removed from level if going back (maybe a non-issue if not going backwards)
+// TODO: Menu / Sound settings
+// TODO: Island borders/walls
+
 const canvas = document.getElementById("game") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
 
@@ -16,7 +25,6 @@ mainScene.setLevel(new CaveLvl1());
 mainScene.input = new Input();
 
 const update = (delta: number) => {
-  // hero.step(delta, input);
   mainScene.stepEntry(delta, mainScene);
 };
 
@@ -47,7 +55,7 @@ const draw = () => {
 
   mainScene.draw(ctx, 0, 0);
   if (mainScene.level) {
-    drawWallBorders(ctx, mainScene.level.walls);
+    // drawWallBorders(ctx, mainScene.level.walls);
   }
   // drawNumberedGrid(ctx, canvas.width, canvas.height, 16);
 

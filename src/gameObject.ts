@@ -8,6 +8,8 @@ export class GameObject {
   parent: GameObject | null;
   hasReadyBeenCalled: boolean;
   input: Input | undefined;
+  isSolid: boolean;
+  drawLayer: number | null;
 
   constructor({ position, input }: { position?: Vector2; input?: Input }) {
     this.position = position ?? new Vector2(0, 0);
@@ -15,6 +17,8 @@ export class GameObject {
     this.parent = null;
     this.hasReadyBeenCalled = false;
     this.input = input;
+    this.isSolid = false;
+    this.drawLayer = null;
   }
 
   // First entry point of the loop
@@ -48,8 +52,21 @@ export class GameObject {
     // Do the actual rendering for Images
     this.drawImage(ctx, drawPosX, drawPosY);
 
-    // Pass onto children
-    this.children.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
+    // Pass onto children, draw children in order of y position for simple layering
+    this.getDrawChildrenOrdered().forEach((child) =>
+      child.draw(ctx, drawPosX, drawPosY),
+    );
+  }
+
+  getDrawChildrenOrdered() {
+    return [...this.children].sort((a, b) => {
+      // TODO: Sort by drawLayer if set
+      if (b.drawLayer === 0) {
+        return 1;
+      }
+
+      return a.position.y - b.position.y;
+    });
   }
 
   drawImage(_ctx: CanvasRenderingContext2D, _x: number, _y: number) {

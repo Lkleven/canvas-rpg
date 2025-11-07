@@ -76,9 +76,6 @@ export class Hero extends GameObject {
     events.on("ROD_PICKED_UP_BY_HERO", this, (data: PickupEvent) => {
       this.onPickUpItem(data);
     });
-
-    console.log("Pos", this.position);
-    console.log("Dest", this.destinationPos);
   }
 
   step(delta: number, root: GameObject) {
@@ -160,7 +157,12 @@ export class Hero extends GameObject {
 
       this.facingDirection = dir ?? this.facingDirection;
 
-      if (isSpaceFree(root.level?.walls, nextX, nextY)) {
+      const spaceIsFree = isSpaceFree(root.level?.walls, nextX, nextY);
+      const solidBodyAtSpace = this.parent?.children.find(
+        (c) => c.isSolid && c.position.x === nextX && c.position.y === nextY,
+      );
+
+      if (spaceIsFree && !solidBodyAtSpace) {
         this.destinationPos.x = nextX;
         this.destinationPos.y = nextY;
       }

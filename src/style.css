@@ -2,8 +2,14 @@ body {
   margin: 0;
   overflow: hidden;
   image-rendering: pixelated;
+  background: burlywood;
 }
 canvas {
   width: 100%;
   background: blue;
+}
+
+@font-face {
+  font-family: fontRetroGaming;
+  src: url("/fonts/Retro Gaming.ttf");
 }

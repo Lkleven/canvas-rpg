@@ -10,10 +10,11 @@ import { Sprite } from "../sprite";
 import { Vector2 } from "../vector2";
 import { CaveLvl1 } from "./caveLvl1";
 
-export class OutdoorLvl1 extends Level {
-  walls: Set<string>;
+const DEFAULT_HERO_POS = new Vector2(gridCells(6), gridCells(5));
 
-  constructor() {
+export class OutdoorLvl1 extends Level {
+  constructor(params: { heroStartPos?: Vector2 } = {}) {
+    console.log("Creating OutdoorLvl1", params);
     super();
     this.background = new Sprite({
       resource: resources.images.sky,
@@ -30,7 +31,8 @@ export class OutdoorLvl1 extends Level {
     const exit = new Exit(gridCells(6), gridCells(3));
     this.addChild(exit);
 
-    const hero = new Hero(gridCells(6), gridCells(5));
+    this.heroStartPos = params.heroStartPos || DEFAULT_HERO_POS;
+    const hero = new Hero(this.heroStartPos.x, this.heroStartPos.y);
     this.addChild(hero);
 
     const rod = new Rod(gridCells(10), gridCells(6));
@@ -41,7 +43,12 @@ export class OutdoorLvl1 extends Level {
 
   ready() {
     events.on("HERO_EXIT", this, () => {
-      events.emit("CHANGE_LEVEL", new CaveLvl1());
+      events.emit(
+        "CHANGE_LEVEL",
+        new CaveLvl1({
+          heroStartPos: new Vector2(gridCells(5), gridCells(5)),
+        }),
+      );
     });
   }
 }

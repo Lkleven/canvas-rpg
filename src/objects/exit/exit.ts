@@ -16,6 +16,7 @@ export class Exit extends GameObject {
         resource: resources.images.exit,
       }),
     );
+    this.drawLayer = 0;
   }
 
   ready() {

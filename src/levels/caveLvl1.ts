@@ -4,14 +4,17 @@ import { buildWalls } from "../helpers/level";
 import { Exit } from "../objects/exit/exit";
 import { Hero } from "../objects/hero/hero";
 import { Level } from "../objects/level/level";
+import { Npc } from "../objects/npc/npc";
 import { Rod } from "../objects/rod/rod";
 import { resources } from "../resource";
 import { Sprite } from "../sprite";
 import { Vector2 } from "../vector2";
 import { OutdoorLvl1 } from "./outdoorLvl1";
 
+const DEFAULT_HERO_POS = new Vector2(gridCells(6), gridCells(5));
+
 export class CaveLvl1 extends Level {
-  constructor() {
+  constructor(params: { heroStartPos?: Vector2 } = {}) {
     super();
 
     this.background = new Sprite({
@@ -26,21 +29,30 @@ export class CaveLvl1 extends Level {
 
     this.addChild(ground);
 
-    const exit = new Exit(gridCells(6), gridCells(1));
+    const exit = new Exit(gridCells(4), gridCells(5));
     this.addChild(exit);
 
-    const hero = new Hero(gridCells(6), gridCells(5));
+    this.heroStartPos = params.heroStartPos || DEFAULT_HERO_POS;
+    const hero = new Hero(this.heroStartPos.x, this.heroStartPos.y);
     this.addChild(hero);
 
     const rod = new Rod(gridCells(10), gridCells(6));
     this.addChild(rod);
+
+    const npc = new Npc(gridCells(8), gridCells(4));
+    this.addChild(npc);
 
     this.walls = buildWalls([...squares, ...water, ...rock]);
   }
 
   ready() {
     events.on("HERO_EXIT", this, () => {
-      events.emit("CHANGE_LEVEL", new OutdoorLvl1());
+      events.emit(
+        "CHANGE_LEVEL",
+        new OutdoorLvl1({
+          heroStartPos: new Vector2(gridCells(7), gridCells(3)),
+        }),
+      );
     });
   }
 }

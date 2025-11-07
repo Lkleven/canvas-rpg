@@ -9,6 +9,9 @@ const imageKeys = [
   "exit",
   "cave",
   "caveGround",
+  "knight",
+  "textBox",
+  "spriteFont",
 ] as const;
 type ImageKey = (typeof imageKeys)[number];
 
@@ -33,6 +36,11 @@ class Resources {
       // Cave
       cave: "/sprites/cave.png",
       caveGround: "/sprites/cave-ground.png",
+      // NPCs
+      knight: "/sprites/knight-sheet-1.png",
+      // HUD
+      textBox: "/sprites/text-box.png",
+      spriteFont: "/sprites/sprite-font-white.png",
     };
 
     // A bucket to keep all our images
