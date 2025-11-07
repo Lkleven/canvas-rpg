@@ -1,8 +1,7 @@
 import { GameLoop } from "./gameloop";
-import { drawNumberedGrid } from "./helpers/grid";
+// import { drawNumberedGrid } from "./helpers/grid";
 import { Input } from "./input";
 import { CaveLvl1 } from "./levels/caveLvl1";
-import { OutdoorLvl1 } from "./levels/outdoorLvl1";
 
 import { Main } from "./objects/main/main";
 import "./style.css";
@@ -28,16 +27,16 @@ const update = (delta: number) => {
   mainScene.stepEntry(delta, mainScene);
 };
 
-function drawWallBorders(ctx: CanvasRenderingContext2D, walls: Set<string>) {
-  ctx.save();
-  ctx.strokeStyle = "red";
-  ctx.lineWidth = 2;
-  for (const pos of walls) {
-    const [x, y] = pos.split(",").map(Number);
-    ctx.strokeRect(x, y, 16, 16);
-  }
-  ctx.restore();
-}
+// function drawWallBorders(ctx: CanvasRenderingContext2D, walls: Set<string>) {
+//   ctx.save();
+//   ctx.strokeStyle = "red";
+//   ctx.lineWidth = 2;
+//   for (const pos of walls) {
+//     const [x, y] = pos.split(",").map(Number);
+//     ctx.strokeRect(x, y, 16, 16);
+//   }
+//   ctx.restore();
+// }
 
 const draw = () => {
   // Clear stale

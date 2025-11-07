@@ -4,8 +4,7 @@ import { FrameIndexPattern } from "../../frameIndexPattern";
 import { GameObject } from "../../gameObject";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
-import { DOWN, Input } from "../../input";
-// import { walls } from "../../levels/outdoorLvl1";
+import { DOWN } from "../../input";
 import { resources } from "../../resource";
 import type { PickupEvent } from "../../shared/types";
 import { Sprite } from "../../sprite";
@@ -157,7 +156,10 @@ export class Hero extends GameObject {
 
       this.facingDirection = dir ?? this.facingDirection;
 
-      const spaceIsFree = isSpaceFree(root.level?.walls, nextX, nextY);
+      const spaceIsFree = root.level?.walls
+        ? isSpaceFree(root.level.walls, nextX, nextY)
+        : true;
+
       const solidBodyAtSpace = this.parent?.children.find(
         (c) => c.isSolid && c.position.x === nextX && c.position.y === nextY,
       );

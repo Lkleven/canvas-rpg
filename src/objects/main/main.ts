@@ -5,7 +5,6 @@ import { Input } from "../../input";
 import { Inventory } from "../inventory/inventory";
 import { Level } from "../level/level";
 import { SpriteTextString } from "../spriteTextString/spriteTextString";
-import { TextBox } from "../textbox/textbox";
 
 export class Main extends GameObject {
   level: Level | null;

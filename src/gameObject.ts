@@ -1,5 +1,6 @@
 import { events } from "./events";
 import type { Input } from "./input";
+import { Level } from "./objects/level/level";
 import { Vector2 } from "./vector2";
 
 export class GameObject {
@@ -10,6 +11,7 @@ export class GameObject {
   input: Input | undefined;
   isSolid: boolean;
   drawLayer: number | null;
+  level: Level | null;
 
   constructor({ position, input }: { position?: Vector2; input?: Input }) {
     this.position = position ?? new Vector2(0, 0);
@@ -19,6 +21,7 @@ export class GameObject {
     this.input = input;
     this.isSolid = false;
     this.drawLayer = null;
+    this.level = null;
   }
 
   // First entry point of the loop
