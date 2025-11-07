@@ -13,11 +13,16 @@ export class SpriteTextString extends GameObject {
       sprite: Sprite;
     }[];
   }[];
+  showingIndex: number;
+  textSpeed: number;
+  timeUntilnextChar: number;
 
   constructor(str: string) {
     super({
-      position: new Vector2(16, 54),
+      position: new Vector2(32, 112),
     });
+
+    this.drawLayer = "HUD";
 
     const content = str ?? "Default text";
 
@@ -47,6 +52,19 @@ export class SpriteTextString extends GameObject {
       resource: resources.images.textBox,
       frameSize: new Vector2(256, 64),
     });
+
+    // Typewriter
+    this.showingIndex = 0;
+    this.textSpeed = 50;
+    this.timeUntilnextChar = this.textSpeed;
+  }
+
+  step(delta: number) {
+    this.timeUntilnextChar -= delta;
+    if (this.timeUntilnextChar <= 0) {
+      this.showingIndex++;
+      this.timeUntilnextChar = this.textSpeed;
+    }
   }
 
   drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
@@ -60,6 +78,7 @@ export class SpriteTextString extends GameObject {
 
     let cursorX = x + PAD_LEFT;
     let cursorY = y + PAD_TOP;
+    let currentShowingIndex = 0;
 
     this.words.forEach((word) => {
       // Decide if we can fit word on next line
@@ -70,6 +89,11 @@ export class SpriteTextString extends GameObject {
       }
 
       word.chars.forEach((char) => {
+        // Stop if we should not yet draw next character
+        if (currentShowingIndex >= this.showingIndex) {
+          return;
+        }
+
         const { sprite, width } = char;
 
         const withCharOffset = cursorX - 5; // 5 is about what is left of a character in sprite sheet
@@ -77,6 +101,8 @@ export class SpriteTextString extends GameObject {
 
         // Add width of the character we just printed to cursor pos, add 1px space
         cursorX += width + 1;
+
+        currentShowingIndex++;
       });
 
       // After each word, add space

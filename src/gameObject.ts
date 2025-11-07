@@ -1,6 +1,6 @@
 import { events } from "./events";
 import type { Input } from "./input";
-import { Level } from "./objects/level/level";
+import type { Level } from "./objects/level/level";
 import { Vector2 } from "./vector2";
 
 export class GameObject {
@@ -10,7 +10,7 @@ export class GameObject {
   hasReadyBeenCalled: boolean;
   input: Input | undefined;
   isSolid: boolean;
-  drawLayer: number | null;
+  drawLayer: number | "HUD" | null;
   level: Level | null;
 
   constructor({ position, input }: { position?: Vector2; input?: Input }) {

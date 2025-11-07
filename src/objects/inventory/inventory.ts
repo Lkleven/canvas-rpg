@@ -14,6 +14,8 @@ export class Inventory extends GameObject {
       position: new Vector2(5, 5),
     });
 
+    this.drawLayer = "HUD";
+
     this.items = [
       { id: -1, image: resources.images.rod },
       { id: -2, image: resources.images.rod },

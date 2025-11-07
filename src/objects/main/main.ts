@@ -10,21 +10,22 @@ export class Main extends GameObject {
   level: Level | null;
   input: Input;
   camera: Camera;
-  inventory: Inventory;
-  textBox: SpriteTextString;
 
   constructor() {
     super({});
     this.level = null;
     this.input = new Input();
     this.camera = new Camera();
-    this.inventory = new Inventory();
-    this.textBox = new SpriteTextString(
-      "Hello my friends! This is a very long text that should probably wrap around to multiple lines.",
-    );
   }
 
   ready() {
+    const inventory = new Inventory();
+    this.addChild(inventory);
+
+    const textBox = new SpriteTextString(
+      "Hello! This is a very long text that should probably wrap around to multiple lines.",
+    );
+    this.addChild(textBox);
     events.on("CHANGE_LEVEL", this, (newLevel: Level) => {
       this.setLevel(newLevel);
     });
@@ -43,13 +44,19 @@ export class Main extends GameObject {
     this.level?.background?.drawImage(ctx, 0, 0);
   }
 
-  drawForeground(ctx: CanvasRenderingContext2D) {
-    this.inventory.draw(
-      ctx,
-      this.inventory.position.x,
-      this.inventory.position.y,
-    );
+  drawObjects(ctx: CanvasRenderingContext2D) {
+    this.children.forEach((child) => {
+      if (child.drawLayer !== "HUD") {
+        child.draw(ctx, 0, 0);
+      }
+    });
+  }
 
-    this.textBox.draw(ctx, this.textBox.position.x, this.textBox.position.y);
+  drawForeground(ctx: CanvasRenderingContext2D) {
+    this.children.forEach((child) => {
+      if (child.drawLayer === "HUD") {
+        child.draw(ctx, 0, 0);
+      }
+    });
   }
 }

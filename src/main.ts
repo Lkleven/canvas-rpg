@@ -1,7 +1,7 @@
 import { GameLoop } from "./gameloop";
 // import { drawNumberedGrid } from "./helpers/grid";
 import { Input } from "./input";
-import { CaveLvl1 } from "./levels/caveLvl1";
+import { OutdoorLvl1 } from "./levels/outdoorLvl1";
 
 import { Main } from "./objects/main/main";
 import "./style.css";
@@ -19,8 +19,7 @@ const canvas = document.getElementById("game") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
 
 const mainScene = new Main();
-// mainScene.setLevel(new OutdoorLvl1());
-mainScene.setLevel(new CaveLvl1());
+mainScene.setLevel(new OutdoorLvl1());
 mainScene.input = new Input();
 
 const update = (delta: number) => {
@@ -52,7 +51,7 @@ const draw = () => {
     ctx.translate(mainScene.camera.position.x, mainScene.camera.position.y);
   }
 
-  mainScene.draw(ctx, 0, 0);
+  mainScene.drawObjects(ctx);
   if (mainScene.level) {
     // drawWallBorders(ctx, mainScene.level.walls);
   }

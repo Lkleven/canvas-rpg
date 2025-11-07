@@ -26,21 +26,21 @@ class Resources {
   constructor() {
     // Everything we plan to download
     this.toLoad = {
-      hero: "/sprites/hero-sheet.png",
-      shadow: "/sprites/shadow.png",
-      rod: "/sprites/rod.png",
-      exit: "/sprites/exit.png",
+      hero: "sprites/hero-sheet.png",
+      shadow: "sprites/shadow.png",
+      rod: "sprites/rod.png",
+      exit: "sprites/exit.png",
       // Outdoors
-      sky: "/sprites/sky.png",
-      ground: "/sprites/ground.png",
+      sky: "sprites/sky.png",
+      ground: "sprites/ground.png",
       // Cave
-      cave: "/sprites/cave.png",
-      caveGround: "/sprites/cave-ground.png",
+      cave: "sprites/cave.png",
+      caveGround: "sprites/cave-ground.png",
       // NPCs
-      knight: "/sprites/knight-sheet-1.png",
+      knight: "sprites/knight-sheet-1.png",
       // HUD
-      textBox: "/sprites/text-box.png",
-      spriteFont: "/sprites/sprite-font-white.png",
+      textBox: "sprites/text-box.png",
+      spriteFont: "sprites/sprite-font-white.png",
     };
 
     // A bucket to keep all our images
