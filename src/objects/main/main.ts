@@ -23,7 +23,7 @@ export class Main extends GameObject {
     this.addChild(inventory);
 
     const textBox = new SpriteTextString(
-      "Hello! This is a very long text that should probably wrap around to multiple lines.",
+      "Hello! This is a very long text that should probably wrap around to multiple lines. WASD or arrows to move",
     );
     this.addChild(textBox);
     events.on("CHANGE_LEVEL", this, (newLevel: Level) => {

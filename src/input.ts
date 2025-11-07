@@ -4,10 +4,10 @@ export const UP = "UP";
 export const DOWN = "DOWN";
 
 const controls = {
-  arrowUp: UP,
-  arrowDown: DOWN,
-  arrowLeft: LEFT,
-  arrowRight: RIGHT,
+  ArrowUp: UP,
+  ArrowDown: DOWN,
+  ArrowLeft: LEFT,
+  ArrowRight: RIGHT,
   KeyW: UP,
   KeyS: DOWN,
   KeyA: LEFT,
